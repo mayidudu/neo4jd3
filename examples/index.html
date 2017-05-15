@@ -19,12 +19,27 @@
                 height: 100%;
                 overflow: hidden;
             }
+
+            #rightmenu {
+                position: absolute;
+                height: 200px;
+                width: 200px;
+            }
         </style>
          <script src="js/jquery.min.js"></script>
     </head>
     <body>
         <div id="neo4jd3"></div>
        
+       <div id="rightmenu" class="hidden">
+            <ul class="list-group">
+                <li class="list-group-item">免费域名注册</li>
+                <li class="list-group-item">免费 Window 空间托管</li>
+                <li class="list-group-item">图像的数量</li>
+                <li class="list-group-item">24*7 支持</li>
+                <li class="list-group-item">每年更新成本</li>
+        </ul>
+       </div>   
         <div id="container">
 
                 <div id="toolbox">
@@ -132,7 +147,11 @@
                         }
                     },
                     onNodeClick: function(node) {
-                        alert(node.id);
+                        $('#rightmenu').css({'display':'block','top':node.y,'left':node.x,'z-index':2});
+                        $('#rightmenu').removeClass('hidden');
+                        console.log(node.x);
+                        console.log(node.y);
+                        
                     },
                     onRelationshipDoubleClick: function(relationship) {
                         console.log('double click on relationship: ' + JSON.stringify(relationship));
@@ -150,6 +169,10 @@
 
             d3.select("#helpbox").on("click", function(){
                     $('#helpbox').addClass('hidden');
+            });
+            d3.select("#rightmenu").on("mouseleave",function(){
+                    $('#rightmenu').addClass('hidden');
+                    
             });
         </script>
 
