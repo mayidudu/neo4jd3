@@ -131,6 +131,9 @@
                                 break;
                         }
                     },
+                    onNodeClick: function(node) {
+                        alert(node.id);
+                    },
                     onRelationshipDoubleClick: function(relationship) {
                         console.log('double click on relationship: ' + JSON.stringify(relationship));
                     },
