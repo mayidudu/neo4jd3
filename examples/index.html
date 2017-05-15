@@ -8,7 +8,10 @@
         <title>neo4jd3.js</title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/font-awesome.min.css">
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/neo4jd3.min.css?v=0.0.1">
+        <link rel="stylesheet" href="css/graph-creator.css">
         <style>
             body,
             html,
@@ -17,14 +20,37 @@
                 overflow: hidden;
             }
         </style>
+         <script src="js/jquery.min.js"></script>
     </head>
     <body>
         <div id="neo4jd3"></div>
-        <a href="https://github.com/eisman/neo4jd3"><img style="cursor: pointer; position: absolute; top: 0; right: 0; border: 0;" src="img/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub" data-canonical-src="img/forkme_right_gray_6d6d6d.png"></a>
+       
+        <div id="container">
 
+                <div id="toolbox">
+                        <input type="file" id="hidden-file-upload">
+                        <input id="help" type="image" title="help" src="images/help-icon.png" alt="help">
+                        <input id="reset-zoom" type="image" title="reset zoom" src="images/reset-zoom-icon.png" alt="reset zoom">
+                        <input id="upload-input" type="image" title="upload graph" src="images/upload-icon.png" alt="upload graph">
+                        <input type="image" id="download-input" title="download graph" src="images/download-icon.png" alt="download graph">
+                        <input type="image" id="delete-graph" title="delete graph" src="images/trash-icon.png" alt="delete graph">
+                </div>
+
+                <div id="helpbox" class="hidden">
+                    <li><strong>Shift + Click</strong> anywhere on the screen (white space) to create a new node.</li>
+                    <li><strong>Shift + Click + Dragging</strong> from one node to another will create a one way connection between them.</li>
+                    <li><strong>Left Clicking</strong> on a node will select it and bring up the inspector on the right hand side, where you can change the event associated with it.</li>
+                    <li><strong>Left Clicking + Dragging</strong> on a node will reposition it.</li>
+                    <li>Selecting a node and pressing <strong>Delete</strong> or <strong>Backspace</strong> will delete the node and any connections to and from it.</li>
+                    <li>Similarly, selecting a connection and pressing <strong>Delete</strong> or <strong>Backspace</strong> will remove the connection.</li>
+                    <li><strong>Mouse Wheel Up</strong> and <strong>Mouse Wheel Down</strong> will zoom the graph accordingly.</li>
+                </div>
+                
+        </div>
         <!-- Scripts -->
         <script src="js/d3.min.js"></script>
         <script src="js/neo4jd3.js?v=0.0.1"></script>
+        <script src="js/FileSaver.min.js"></script>
         <script type="text/javascript">
             function init() {
                 var neo4jd3 = new Neo4jd3('#neo4jd3', {
@@ -113,16 +139,19 @@
             }
 
             window.onload = init;
+            
+            
+            d3.select("#help").on("click", function(){
+                     $('#helpbox').removeClass('hidden');
+            });
+
+            d3.select("#helpbox").on("click", function(){
+                    $('#helpbox').addClass('hidden');
+            });
         </script>
 
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+       
 
-          ga('create', 'UA-430863-29', 'auto');
-          ga('send', 'pageview');
-        </script>
+        
     </body>
 </html>
